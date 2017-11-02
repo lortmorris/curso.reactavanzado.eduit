@@ -1,10 +1,11 @@
 {
-  "name": "react-example-class2",
+  "name": "react-example-class1",
   "version": "1.0.0",
-  "description": "React Example, class 2, course of react.",
+  "description": "React Example, class 1, course of react advance.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node ./node_modules/webpack/bin/webpack --watch --color --progress"
   },
   "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
   "license": "ISC",

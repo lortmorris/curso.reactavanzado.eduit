@@ -12,7 +12,6 @@ class TodosListComponent extends React.Component{
   removeHandler(e){
     e.preventDefault();
     this.props.dispatch(removeTodoList(this.props.todosListId));
-    this.props.updateHandler();
   }
 
   render(){

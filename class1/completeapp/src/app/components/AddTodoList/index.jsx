@@ -6,7 +6,6 @@ class AddTodoList extends React.Component {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
     this.submit = this.submit.bind(this);
-    console.log('AddTodoList Prop: ', this.props);
 
     this.state = {
       input: '',
@@ -20,7 +19,6 @@ class AddTodoList extends React.Component {
       addTodo(this.state.todosListId, this.state.input) :
       addTodoList(this.state.input));
     this.setState({input: ''});
-    this.props.updateHandler();
   }
   changeHandler(e) {
     this.setState({input: e.target.value});

@@ -11,13 +11,11 @@ class Todo extends React.Component{
   clickHandler(e){
     e.preventDefault();
     this.props.dispatch(toggleTodo(this.props.todosListId, this.props.id));
-    this.props.updateHandler();
   }
 
   removeHandler(e){
     e.preventDefault();
     this.props.dispatch(removeTodo(this.props.todosListId, this.props.id));
-    this.props.updateHandler();
   }
   render(){
     const {completed, title } = this.props;
