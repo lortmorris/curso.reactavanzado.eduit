@@ -7,10 +7,10 @@ import TodosListComponent from '../../components/TodosListComponent/index.jsx';
 import AddTodoList from '../../components/AddTodoList/index.jsx';
 
 
-const TodosList = ({ todos, update }) => (
+const TodosList = ({ todos, handlerAdd }) => (
 	<div>
 		<Title title="TODOS App" color="red" />
-		<AddTodoList updateHandler={update} />
+		<AddTodoList handlerAdd={handlerAdd} />
 		{todos.map(list => (
 			<TodosListComponent
 			todos={list.todos}
@@ -29,6 +29,13 @@ export default compose(
 		todos: state.todos,
 	})),
 	withHandlers({
-		update: props => console.info(props),
+		handlerAdd: (props) => e => {
+			e.preventDefault();
+			return console.info(' testing: ', props);
+    	this.props.dispatch(this.state.todosListId !== null ?
+      addTodo(this.state.todosListId, this.state.input) :
+      addTodoList(this.state.input));
+    	this.setState({input: ''});
+		}
 	})
 )(TodosList);
