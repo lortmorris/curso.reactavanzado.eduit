@@ -10,11 +10,11 @@ const config = {
     filename: 'bundle.js'
   },
   module : {
-    loaders : [
+    rules : [
       {
         test : /\.js*?/,
         include : APP_DIR,
-        loader : 'babel-loader'
+        use : 'babel-loader'
       }
     ]
   }

@@ -26,11 +26,23 @@ const ConnectedSwitch = connect(state => ({
 }))(Switch);
 
 
+const ContainerHome = (props) => (
+  <h1>Home <Link to="/about">About</Link></h1>
+);
+
+const ContainerAbout = (props) => (
+  <h1>About <Link to="/">Home</Link></h1>
+);
+
+const Show404 = (props) => (
+  <h1>Página no encontrada</h1>
+);
 
 const AppContainer = ({ location }) => (
     <ConnectedSwitch>
-        <Route exact path="/" component={(props) => (<h1>Home <Link to="/about">About</Link></h1>)} />
-        <Route path="/about" component={(props) => (<h1>About <Link to="/">Home</Link></h1>)} />
+        <Route exact path="/" component={ContainerHome} />
+        <Route path="/about" component={ContainerAbout} />
+        <Route component={Show404}/>
     </ConnectedSwitch>
 );
 
