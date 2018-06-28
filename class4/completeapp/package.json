@@ -1,0 +1,33 @@
+{
+  "name": "react-example-class1",
+  "version": "1.0.0",
+  "description": "React Example, class 1, course of react advance.",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./src/public"
+  },
+  "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "babel-loader": "*",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "*",
+    "express": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "recompose": "^0.26.0",
+    "redux": "*",
+    "redux-saga": "^0.16.0",
+    "webpack": "*",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
