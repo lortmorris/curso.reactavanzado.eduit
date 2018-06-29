@@ -15,7 +15,7 @@ class AddTodoList extends React.Component {
 
   submit(e){
     e.preventDefault();
-    this.props.dispatch(this.state.todosListId !== null ?
+    this.props.addNewTaskHandler(this.state.todosListId !== null ?
       addTodo(this.state.todosListId, this.state.input) :
       addTodoList(this.state.input));
     this.setState({input: ''});

@@ -1,5 +1,4 @@
 import React from 'react';
-import { toggleTodo, removeTodo } from '../../actions';
 
 class Todo extends React.Component{
   constructor(props){
@@ -10,12 +9,12 @@ class Todo extends React.Component{
 
   clickHandler(e){
     e.preventDefault();
-    this.props.dispatch(toggleTodo(this.props.todosListId, this.props.id));
+    this.props.toggleTodo(this.props.todosListId, this.props.id);
   }
 
   removeHandler(e){
     e.preventDefault();
-    this.props.dispatch(removeTodo(this.props.todosListId, this.props.id));
+    this.props.removeTodo(this.props.todosListId, this.props.id);
   }
   render(){
     const {completed, title } = this.props;

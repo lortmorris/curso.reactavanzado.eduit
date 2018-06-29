@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-
+import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import createHistory from 'history/createBrowserHistory';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
@@ -14,11 +14,12 @@ import { Route, Switch } from 'react-router';
 import { default as todos } from './reducers';
 import { initialState } from './actions';
 
+import TodosList from './containers/TodosList/index.jsx';
 const history = createHistory();
 
 const store = createStore(
     todos,
-    applyMiddleware(routerMiddleware(history)),
+    applyMiddleware(routerMiddleware(history), logger),
 );
 
 const ConnectedSwitch = connect(state => ({
@@ -40,7 +41,7 @@ const Show404 = (props) => (
 
 const AppContainer = ({ location }) => (
     <ConnectedSwitch>
-        <Route exact path="/" component={ContainerHome} />
+        <Route exact path="/" component={TodosList} />
         <Route path="/about" component={ContainerAbout} />
         <Route component={Show404}/>
     </ConnectedSwitch>
