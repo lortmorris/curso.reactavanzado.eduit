@@ -1,99 +1,63 @@
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-
+import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import createHistory from 'history/createBrowserHistory';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
+import createSagaMiddleware from 'redux-saga';
 
 import { default as todos } from './reducers';
 import { initialState } from './actions';
-
+import sagas from './sagas';
+import TodosList from './containers/TodosList/index.jsx';
 const history = createHistory();
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     todos,
-    applyMiddleware(routerMiddleware(history)),
+    applyMiddleware(sagaMiddleware, routerMiddleware(history), logger),
+);
+sagaMiddleware.run(sagas);
+
+
+const ConnectedSwitch = connect(state => ({
+	location: state.location
+}))(Switch);
+
+
+const ContainerHome = (props) => (
+  <h1>Home <Link to="/about">About</Link></h1>
 );
 
-window.store = store;
+const ContainerAbout = (props) => (
+  <h1>About <Link to="/">Home</Link></h1>
+);
 
-const home = () => (<h1>Home <Link to="/about">About</Link></h1>);
-const about = () => (<h1>About <Link to="/">Home</Link></h1>);
+const Show404 = (props) => (
+  <h1>Página no encontrada</h1>
+);
 
-class User extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      show: true,
-    }
-  }
+const AppContainer = ({ location }) => (
+    <ConnectedSwitch>
+        <Route exact path="/" component={TodosList} />
+        <Route path="/about" component={ContainerAbout} />
+        <Route component={Show404}/>
+    </ConnectedSwitch>
+);
 
-  removeUser = (n) => {
-    console.info('removing: ');
-    this.setState({ show: false });
-  }
+const App = connect(state => ({
+    location: state.location,
+}))(AppContainer);
 
-  render() {
-    const { n } = this.props;
-    return this.state.show &&
-        (<p style={{background: `${n % 2 ? '#CFCFCF' : '#ffffff'}`}} onClick={this.removeUser}>{n}</p>)
-
-  }
-}
-
-
-
-class Users extends React.Component {
-  constructor(){
-    super();
-    const users = [];
-    for (let x =0 ; x<100; x++) users.push(x);
-    this.state = {
-      users,
-      show: false,
-    }
-  }
-
-  componentWillMount() {
-    console.info('antes de ejecutar');
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.info('termine el request');
-        resolve();
-        this.setState({show: true});
-      }, 100);
-    })
-  }
-
-  componentDidMount() {
-    console.info('termine todo');
-  }
-  render() {
-    console.info('rendering');
-    return this.state.show && (
-      <div>
-        {this.state.users.map((n, i) => (
-            <div key={`user-${i}`} >
-              <User n={n}/>
-            </div>
-        )
-        )}
-      </div>
-    );
-  }
-}
 render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-          <div>
-            <Route exact path="/" component={Users} />
-            <Route path="/about" component={about} />
-            <Route path="/users" component={Users} />
-          </div>
+            <App />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('app'),

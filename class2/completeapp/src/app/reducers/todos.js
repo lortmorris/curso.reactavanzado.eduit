@@ -12,7 +12,6 @@ const todo = (state={}, action) => {
     break;
 
     case 'REMOVE_TODO':
-    console.log(' REMOVE ?TODO_ ', action);
       return state.id !== action.id;
     break;
 
@@ -47,7 +46,6 @@ const todosList = (state={}, action) => {
 }
 
 const todos = (state=[], action) => {
-  console.log('reducer called: ', state, action);
   switch(action.type){
       case 'INITIAL_STATE':
         return action.state;

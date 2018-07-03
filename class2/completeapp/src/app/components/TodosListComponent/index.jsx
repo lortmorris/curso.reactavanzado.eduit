@@ -2,7 +2,7 @@ import React from 'react';
 import SubTitle from '../SubTitle.jsx';
 import Todos from '../Todos/index.jsx';
 import AddTodoList from '../AddTodoList/index.jsx';
-import { removeTodoList } from '../../actions';
+
 class TodosListComponent extends React.Component{
   constructor(props){
     super(props);
@@ -11,17 +11,22 @@ class TodosListComponent extends React.Component{
 
   removeHandler(e){
     e.preventDefault();
-    this.props.dispatch(removeTodoList(this.props.todosListId));
+    this.props.removeTaskHandler(this.props.todosListId);
   }
 
   render(){
     return (<div className="todos-list-component">
-      <SubTitle subtitle={this.props.title} />
-      <a className="remove" href="" onClick={this.removeHandler}>[X]</a>
-      <AddTodoList dispatch={this.props.dispatch} todosListId={this.props.todosListId} updateHandler={this.props.updateHandler} />
-      <Todos todos={this.props.todos} dispatch={this.props.dispatch} todosListId={this.props.todosListId} updateHandler={this.props.updateHandler} />
-    </div>);
-  }
+    <SubTitle subtitle={this.props.title} />
+    <a className="remove" href="" onClick={this.removeHandler}>[X]</a>
+    <AddTodoList todosListId={this.props.todosListId} addNewTaskHandler={this.props.addNewTaskHandler} />
+    <Todos
+      todos={this.props.todos}
+      todosListId={this.props.todosListId}
+      removeTodo={this.props.removeTodo}
+      toggleTodo={this.props.toggleTodo}
+      />
+  </div>);
+}
 }
 
 export default TodosListComponent;
