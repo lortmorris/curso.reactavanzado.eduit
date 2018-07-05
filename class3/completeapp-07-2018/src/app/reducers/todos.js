@@ -54,6 +54,9 @@ const todos = (state=[], action) => {
         return [...state, todosList({}, action)];
       break;
 
+      case 'TODOSLIST_FETCH_SUCCEEDED':
+        return [...action.todoslist];
+      break;
       case 'REMOVE_TODO_LIST':
         return state.filter(list => todosList(list, action));
       break;

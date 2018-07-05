@@ -13,6 +13,7 @@ const TodosList = ({
   addNewTaskHandler,
   removeTodo,
   toggleTodo,
+  initAppState,
 }) => (
 	<div>
 		<Title title="TODOS App" color="red" />
@@ -30,6 +31,9 @@ const TodosList = ({
       toggleTodo={toggleTodo}
 			/>
 		))}
+    <div>
+        <button onClick={initAppState}>Initial State</button>
+    </div>
 	</div>
 );
 
@@ -46,6 +50,7 @@ const mapActionsToProps = dispatch => ({
   removeTaskHandler: id => dispatch(removeTodoList(id)),
   removeTodo: (listId, id) => dispatch(removeTodo(listId, id)),
   toggleTodo: (listId, id) => dispatch(toggleTodo(listId, id)),
+  initAppState: () => dispatch({ type: 'INIT_APP_STATE' }),
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(TodosList);
