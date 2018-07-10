@@ -1,0 +1,37 @@
+h2 {
+  display: block;
+  width: 100%;
+  color: blue;
+}
+
+form{
+  display: block;
+  width: 100%;
+}
+ul{
+  list-style: none;
+}
+ul li{
+  padding: 5px;
+}
+ul li:nth-child(odd) {
+  background: #efefef;
+}
+.todos-list-component{
+  float: left;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+  border: 1px solid #ef01ef;
+  background: #fefefe;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.remove {
+  
+}
+
+.todos-box {
+
+}
