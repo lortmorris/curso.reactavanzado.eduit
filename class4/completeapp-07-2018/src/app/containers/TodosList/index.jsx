@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose, withState } from 'recompose';
 import Title from '../../components/Title/index.jsx';
 import TodosListComponent from '../../components/TodosListComponent/index.jsx';
 import AddTodoList from '../../components/AddTodoList/index.jsx';
 import { removeTodoList, toggleTodo, removeTodo } from '../../actions';
+import Counter from '../../components/Counter/index.jsx';
 
 
 const TodosList = ({
@@ -17,6 +19,7 @@ const TodosList = ({
 }) => (
 	<div>
 		<Title title="TODOS App" color="red" />
+    <Counter />
     <div>Error en request</div>
 		<AddTodoList updateHandler={update} addNewTaskHandler={addNewTaskHandler} />
 		{todos.map(list => (
