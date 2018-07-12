@@ -1,5 +1,5 @@
 # Course of React.js (Curso de React.js) avance.
-## Powered by Césaar Casas (https://www.linkedin.com/in/cesarcasas)
+## Powered by César Casas (https://www.linkedin.com/in/cesarcasas)
 
 # class 1
 - React router, how implement and work with routers in react.js
