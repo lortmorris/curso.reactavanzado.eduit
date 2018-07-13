@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
 import createSagaMiddleware from 'redux-saga';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { default as todos } from './reducers';
 import { initialState } from './actions';
 import sagas from './sagas';

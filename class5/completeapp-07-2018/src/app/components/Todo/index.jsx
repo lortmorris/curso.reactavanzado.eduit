@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Todo extends React.Component{
   constructor(props){
@@ -27,5 +28,10 @@ class Todo extends React.Component{
   }
 }
 
+Todo.propTypes = {
+  completed: PropTypes.bool,
+  title: PropTypes.string,
+  pepe: PropTypes.string.isRequired,
+};
 
 export default Todo;

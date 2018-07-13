@@ -3,6 +3,8 @@ import SubTitle from '../SubTitle.jsx';
 import Todos from '../Todos/index.jsx';
 import AddTodoList from '../AddTodoList/index.jsx';
 
+import './styles.scss';
+
 class TodosListComponent extends React.Component{
   constructor(props){
     super(props);
@@ -15,17 +17,19 @@ class TodosListComponent extends React.Component{
   }
 
   render(){
-    return (<div className="todos-list-component">
-    <SubTitle subtitle={this.props.title} />
-    <a className="remove" href="" onClick={this.removeHandler}>[X]</a>
-    <AddTodoList todosListId={this.props.todosListId} addNewTaskHandler={this.props.addNewTaskHandler} />
-    <Todos
-      todos={this.props.todos}
-      todosListId={this.props.todosListId}
-      removeTodo={this.props.removeTodo}
-      toggleTodo={this.props.toggleTodo}
-      />
-  </div>);
+    return (
+    <div className="todos-list-component">
+      <SubTitle subtitle={this.props.title} />
+      <a className="remove" href="" onClick={this.removeHandler}>[X]</a>
+      <AddTodoList todosListId={this.props.todosListId} addNewTaskHandler={this.props.addNewTaskHandler} />
+      <Todos
+        todos={this.props.todos}
+        todosListId={this.props.todosListId}
+        removeTodo={this.props.removeTodo}
+        toggleTodo={this.props.toggleTodo}
+        />
+    </div>
+  );
 }
 }
 

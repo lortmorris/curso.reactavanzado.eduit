@@ -1,15 +1,15 @@
 import React from 'react';
 import { compose, withState, withHandlers, lifecycle, withProps } from 'recompose';
-
+import { Button, Alert } from 'reactstrap';
 
 const Counter = ({ x, setX, showName, display, list }) => (
   <div>
       <span>{x}</span>
-      <button onClick={() => setX(n => n + 1)}>[+]</button>
-      <button onClick={() => setX(n => n - 1)}>[-]</button>
-      <button onClick={() => showName(n => n - 1)}>Show</button>
+      <Button onClick={() => setX(n => n + 1)}>[+]</Button>
+      <Button onClick={() => setX(n => n - 1)}>[-]</Button>
+      <Button color="danger" onClick={() => showName(n => n - 1)}>Show</Button>
       <div>
-      {display && (<span>Me estoy mostrando</span>)}
+      {display && (<Alert color="primary">Me estoy mostrando</Alert>)}
       </div>
       <div>
           <ul>

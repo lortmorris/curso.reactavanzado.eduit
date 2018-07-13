@@ -7,6 +7,7 @@ import AddTodoList from '../../components/AddTodoList/index.jsx';
 import { removeTodoList, toggleTodo, removeTodo } from '../../actions';
 import Counter from '../../components/Counter/index.jsx';
 
+import './styles.scss';
 
 const TodosList = ({
   todos,
@@ -17,7 +18,7 @@ const TodosList = ({
   toggleTodo,
   initAppState,
 }) => (
-	<div>
+	<div class="TodosList">
 		<Title title="TODOS App" color="red" />
     <Counter />
     <div>Error en request</div>
