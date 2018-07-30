@@ -2,11 +2,10 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
 import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import createHistory from 'history/createBrowserHistory';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerReducer, routerMiddleware, ConnectedRouter } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
@@ -38,14 +37,22 @@ const ContainerAbout = (props) => (
   <h1>About <Link to="/">Home</Link></h1>
 );
 
+const ContainerEmpty = (props) => (
+  <h1>Empty</h1>
+);
+
 const Show404 = (props) => (
   <h1>Página no encontrada</h1>
 );
 
 const AppContainer = ({ location }) => (
     <ConnectedSwitch>
-        <Route exact path="/" component={TodosList} />
-        <Route path="/about" component={ContainerAbout} />
+        <Route path="/" component={TodosList}>
+          <Route path="about" component={ContainerAbout} />
+          <Route path="todoslist/:id" component={ContainerEmpty}>
+            <Route path="todoslist/:todolistId/:taskId" component={ContainerEmpty} />
+          </Route>
+        </Route>
         <Route component={Show404}/>
     </ConnectedSwitch>
 );
