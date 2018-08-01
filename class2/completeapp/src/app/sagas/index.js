@@ -1,5 +1,10 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import apiClient from '../lib/apiClient';
 
+const localClient = new apiClient({
+  host: 'localhost',
+  port: 5000,
+});
 
 function* fetchTodosList(action) {
    try {
@@ -14,11 +19,12 @@ function* fetchTodosList(action) {
 
 function* addTodoList(action) {
    try {
-      // const user = yield call(Api.fetchUser, action.payload.userId);
-      const todoslist = action.payload;
       console.info('addTodoList: called : ', action);
-      yield put({ type: action.payload.type, title: todoslist.title });
+      const apiResponse = yield call(localClient.post, '/todolists', { title: action.payload.title });
+      console.info('apiResponse: ', apiResponse);
+      yield put({ type: action.payload.type, ...apiResponse.data });
    } catch (e) {
+     console.error(e);
       yield put({ type: 'TODOSLIST_ADD_FAILED', message: e.message});
    }
 }
