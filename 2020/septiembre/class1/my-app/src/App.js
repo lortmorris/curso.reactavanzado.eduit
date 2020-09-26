@@ -12,6 +12,18 @@ import Home from './screens/Home';
 
 import NavBar from './components/NavBar';
 
+import store from './store';
+
+store.dispatch({
+  type: 'ADD',
+  payload: {
+    name: 'Aprender redux',
+  }
+});
+
+console.info(store.getState());
+
+
 function App() {
   return (
     <Router>
