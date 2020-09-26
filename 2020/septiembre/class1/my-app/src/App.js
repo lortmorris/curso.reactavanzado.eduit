@@ -11,7 +11,6 @@ import Users from './screens/Users';
 import Home from './screens/Home';
 
 import NavBar from './components/NavBar';
-
 import store from './store';
 
 store.dispatch({
