@@ -16,9 +16,6 @@ import Home from './screens/Home';
 import NavBar from './components/NavBar';
 import store from './store';
 
-import Actions from './actions';
-
-store.dispatch(Actions.Todos.addNewTodo('aprender redux'));
 
 function App() {
   return (

@@ -1,21 +1,31 @@
 import React from 'react';
-import TodoItem from '../../components/TodoItem';
+import { useSelector, useDispatch } from 'react-redux';
 
-const data = [
-  { name : 'aprender redux', id: 1 },
-  { name : 'aprender effect', id: 2 },
-];
+import Actions from '../../actions';
+
+import TodoItem from '../../components/TodoItem';
+import TodoAddForm from '../../components/TodoAddForm';
 
 function Todos() {
+  const dispatch = useDispatch();
+  const todos = useSelector(state => state.Todos);
+
+  function handleToggle(id) {
+    dispatch(Actions.Todos.toggleTodo(id));
+  }
+
   return (
     <div>
       <h2>TODOS</h2>
-      <input type="text" name="todoname" id="todoname" value="" />
+      <TodoAddForm
+        handle={(name) => dispatch(Actions.Todos.addNewTodo(name))}
+      />
       <ul>
-        {data.map(todo => (
+        {todos.map(todo => (
           <TodoItem
             key={todo.id}
-            name={todo.name}
+            {...todo}
+            handleToggle={handleToggle}
           />
         ))}
       </ul>

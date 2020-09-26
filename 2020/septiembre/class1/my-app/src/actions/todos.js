@@ -7,6 +7,14 @@ export const addNewTodo = name => ({
   }
 });
 
+export const toggleTodo = id => ({
+  type: 'TODOS_TOGGLE',
+  payload: {
+    id,
+  }
+});
+
 export default {
   addNewTodo,
+  toggleTodo,
 }

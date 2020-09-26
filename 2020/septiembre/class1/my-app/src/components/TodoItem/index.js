@@ -1,9 +1,13 @@
 import React from 'react';
 
 
-function TodoItem({ name }) {
+function TodoItem({ name, complete, id, handleToggle }) {
   return (
-    <li>
+    <li style={{
+      color: complete ? 'blue' : 'red',
+      }}
+      onClick={() => handleToggle(id)}
+    >
       {name}
     </li>
   )
