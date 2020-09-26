@@ -28,6 +28,6 @@
     "redux": "*",
     "redux-saga": "^0.16.0",
     "webpack": "*",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^3.11.0"
   }
 }
