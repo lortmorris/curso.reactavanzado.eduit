@@ -28,6 +28,10 @@ const Todos = (initialState = [], action) => {
     switch(action.type) {
       case 'TODOS_ADD':
         return [...initialState, Todo(null, action)];
+
+      case 'TODOS_DELETE':
+        return initialState.filter(todo => todo.id !== action.payload.id);
+
       case 'TODOS_TOGGLE':
         return initialState.map(state => Todo(state, action));
       default:

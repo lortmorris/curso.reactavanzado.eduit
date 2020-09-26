@@ -13,7 +13,9 @@ function Todos() {
   function handleToggle(id) {
     dispatch(Actions.Todos.toggleTodo(id));
   }
-
+  function handleDelete(id) {
+    dispatch(Actions.Todos.deleteTodo(id));
+  }
   return (
     <div>
       <h2>TODOS</h2>
@@ -26,6 +28,7 @@ function Todos() {
             key={todo.id}
             {...todo}
             handleToggle={handleToggle}
+            handleDelete={handleDelete}
           />
         ))}
       </ul>

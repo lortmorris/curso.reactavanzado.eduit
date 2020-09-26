@@ -14,7 +14,15 @@ export const toggleTodo = id => ({
   }
 });
 
+export const deleteTodo = id => ({
+  type: 'TODOS_DELETE',
+  payload: {
+    id,
+  }
+});
+
 export default {
   addNewTodo,
   toggleTodo,
+  deleteTodo,
 }
