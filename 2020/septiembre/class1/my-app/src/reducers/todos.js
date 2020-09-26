@@ -27,7 +27,7 @@ const Todo = (initialState = {}, action) => {
 const Todos = (initialState = [], action) => {
     switch(action.type) {
       case 'ADD':
-        return [...initialState, Todo(action)];
+        return [...initialState, Todo(null, action)];
       case 'TOGGLE':
         return initialState.map(state => Todo(state, action));
       default:
