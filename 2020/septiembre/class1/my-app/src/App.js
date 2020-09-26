@@ -8,20 +8,18 @@ import {
 
 import About from './screens/About';
 import Users from './screens/Users';
+import Todos from './screens/Todos';
 import Home from './screens/Home';
 
 import NavBar from './components/NavBar';
 import store from './store';
 
 store.dispatch({
-  type: 'ADD',
+  type: 'TODOS_ADD',
   payload: {
     name: 'Aprender redux',
   }
 });
-
-console.info(store.getState());
-
 
 function App() {
   return (
@@ -34,6 +32,9 @@ function App() {
           </Route>
           <Route path="/users">
             <Users />
+          </Route>
+          <Route path="/todos">
+            <Todos />
           </Route>
           <Route path="/">
             <Home />
