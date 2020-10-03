@@ -16,6 +16,7 @@ import {
   getTodos,
   saveTodo,
   toggleTodo,
+  removeTodo,
 } from '../../api';
 
 function Todos() {
@@ -64,8 +65,15 @@ function Todos() {
     // dispatch(Actions.Todos.toggleTodo(id, completed));
   }
 
-  function handleDelete(id) {
-    dispatch(Actions.Todos.deleteTodo(id));
+  async function handleDelete(_id) {
+    try {
+      await removeTodo(_id);
+      await getRemoteTodos();
+    } catch (err) {
+      setError('Error eliminando el TODO');
+    }
+
+    // dispatch(Actions.Todos.deleteTodo(id));
   }
 
   return (

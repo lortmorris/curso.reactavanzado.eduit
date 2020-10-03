@@ -34,6 +34,15 @@ export async function toggleTodo(_id, completed) {
   }
 }
 
+export async function removeTodo(_id) {
+  try {
+    const data = await postData('http://localhost:8080/remove', { _id });
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 export async function saveTodo(todo) {
   try {
     const data = await postData('http://localhost:8080/save', { ...todo });
