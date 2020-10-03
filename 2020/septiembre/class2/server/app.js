@@ -50,7 +50,35 @@ app.get('/', (req, res) => {
 
 
 app.post('/save', (req, res) => {
-  db.todos.insert(req.body, (err, doc) => {
+  db.todos.insert({
+    ...req.body,
+    added: new Date(),
+  }, (err, doc) => {
+    if (err) {
+      return res.status(500).end(err.toString())
+    }
+    res.json(doc);
+  });
+});
+
+
+app.post('/toggle', (req, res) => {
+  db.todos.update({
+    _id: db.ObjectId(req.body._id)
+  }, {
+    $set: { completed: req.body.completed }
+  }, (err, doc) => {
+    if (err) {
+      return res.status(500).end(err.toString())
+    }
+    res.json(doc);
+  });
+});
+
+app.post('/remove', (req, res) => {
+  db.todos.remove({
+    _id: db.ObjectId(req.body._id)
+  }, (err, doc) => {
     if (err) {
       return res.status(500).end(err.toString())
     }

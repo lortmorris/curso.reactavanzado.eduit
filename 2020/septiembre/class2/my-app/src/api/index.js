@@ -25,6 +25,15 @@ export async function getTodos() {
   }
 }
 
+export async function toggleTodo(_id, completed) {
+  try {
+    const data = await postData('http://localhost:8080/toggle', { _id, completed });
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 export async function saveTodo(todo) {
   try {
     const data = await postData('http://localhost:8080/save', { ...todo });

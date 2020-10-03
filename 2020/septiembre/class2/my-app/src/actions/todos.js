@@ -2,6 +2,7 @@ export const addNewTodo = (name) => ({
   type: 'TODOS_ADD',
   payload: {
     name,
+    completed: false,
   },
 });
 

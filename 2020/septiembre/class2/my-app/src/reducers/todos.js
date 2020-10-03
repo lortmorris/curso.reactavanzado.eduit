@@ -1,19 +1,14 @@
-const idx = () => new Date().getTime();
-
 const Todo = (initialState = {}, action) => {
   switch (action.type) {
   case 'TODOS_ADD':
     return {
       ...action.payload,
-      complete: false,
-      added: new Date(),
-      id: idx(),
     };
   case 'TODOS_TOGGLE':
-    if (action.payload.id === initialState.id) {
+    if (action.payload._id === initialState._id) {
       return {
         ...initialState,
-        complete: !initialState.complete,
+        completed: !initialState.completed,
       };
     }
     return initialState;
@@ -28,7 +23,7 @@ const Todos = (initialState = [], action) => {
     return [...initialState, Todo(null, action)];
 
   case 'TODOS_DELETE':
-    return initialState.filter((todo) => todo.id !== action.payload.id);
+    return initialState.filter((todo) => todo._id !== action.payload._id);
 
   case 'TODOS_TOGGLE':
     return initialState.map((state) => Todo(state, action));

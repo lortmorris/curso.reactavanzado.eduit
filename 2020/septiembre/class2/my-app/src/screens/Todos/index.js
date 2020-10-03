@@ -12,7 +12,11 @@ import TodoItem from '../../components/TodoItem';
 import TodoAddForm from '../../components/TodoAddForm';
 
 import Actions from '../../actions';
-import { getTodos, saveTodo } from '../../api';
+import {
+  getTodos,
+  saveTodo,
+  toggleTodo,
+} from '../../api';
 
 function Todos() {
   const [todos, setTodos] = useState([]);
@@ -22,18 +26,18 @@ function Todos() {
   async function getRemoteTodos() {
     console.info('getRemoteTodos');
     try {
-      const inserted = await saveTodo({
-        name: 'my todo test',
-        id: '123',
-        added: new Date(),
-      });
-      console.info('inserted: ', inserted);
       const remoteTodos = await getTodos();
       setTodos(remoteTodos);
     } catch (err) {
       setError('No se ha podido conectar al servidor');
       console.info('explotod todo: ', err);
     }
+  }
+
+  async function addNewTodoHandle(data) {
+    const inserted = await saveTodo(data);
+    await getRemoteTodos();
+    console.info('inserted: ', inserted);
   }
 
   useEffect(() => {
@@ -50,8 +54,14 @@ function Todos() {
   const dispatch = useDispatch();
   // const todos = useSelector((state) => state.Todos);
 
-  function handleToggle(id) {
-    dispatch(Actions.Todos.toggleTodo(id));
+  async function handleToggle(id, completed) {
+    try {
+      await toggleTodo(id, completed);
+      await getRemoteTodos();
+    } catch (err) {
+      setError('Error cambiando toggle');
+    }
+    // dispatch(Actions.Todos.toggleTodo(id, completed));
   }
 
   function handleDelete(id) {
@@ -62,12 +72,12 @@ function Todos() {
     <div>
       <h2>TODOS</h2>
       <TodoAddForm
-        handle={(name) => dispatch(Actions.Todos.addNewTodo(name))}
+        handle={(name) => addNewTodoHandle(Actions.Todos.addNewTodo(name).payload)}
       />
       <ul>
         {todos.map((todo) => (
           <TodoItem
-            key={todo.id}
+            key={todo._id}
             {...todo}
             handleToggle={handleToggle}
             handleDelete={handleDelete}
