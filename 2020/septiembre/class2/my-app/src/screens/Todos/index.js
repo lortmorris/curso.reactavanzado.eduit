@@ -12,7 +12,7 @@ import TodoItem from '../../components/TodoItem';
 import TodoAddForm from '../../components/TodoAddForm';
 
 import Actions from '../../actions';
-import { getTodos } from '../../api';
+import { getTodos, saveTodo } from '../../api';
 
 function Todos() {
   const [todos, setTodos] = useState([]);
@@ -22,6 +22,12 @@ function Todos() {
   async function getRemoteTodos() {
     console.info('getRemoteTodos');
     try {
+      const inserted = await saveTodo({
+        name: 'my todo test',
+        id: '123',
+        added: new Date(),
+      });
+      console.info('inserted: ', inserted);
       const remoteTodos = await getTodos();
       setTodos(remoteTodos);
     } catch (err) {

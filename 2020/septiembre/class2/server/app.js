@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const mongojs = require('mongojs');
+const bodyParser = require('body-parser');
 
 const app = express();
 const db = mongojs('mongodb://127.0.0.1/todos');
@@ -31,6 +32,12 @@ app.use((req, res, next) => {
 });
 
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 
 app.get('/', (req, res) => {
   db.todos.find((err, docs) => {
@@ -43,7 +50,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/save', (req, res) => {
-  db.todos.insert(req.query, (err, doc) => {
+  db.todos.insert(req.body, (err, doc) => {
     if (err) {
       return res.status(500).end(err.toString())
     }
