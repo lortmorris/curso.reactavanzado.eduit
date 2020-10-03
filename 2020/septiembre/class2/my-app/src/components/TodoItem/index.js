@@ -10,11 +10,10 @@ function TodoItem({
   return (
     <li
       style={{
-      color: complete ? 'blue' : 'red',
+        color: complete ? 'blue' : 'red',
       }}
-      onClick={() => handleToggle(id)}
     >
-      {name}
+      <span onClick={() => handleToggle(id)}>{name}</span>
       <button onClick={() => handleDelete(id)}>
         [X]
       </button>
