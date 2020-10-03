@@ -17,8 +17,10 @@ import { getTodos } from '../../api';
 function Todos() {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState('');
+  const [init, setInit] = useState(false);
 
   async function getRemoteTodos() {
+    console.info('getRemoteTodos');
     try {
       const remoteTodos = await getTodos();
       setTodos(remoteTodos);
@@ -30,11 +32,14 @@ function Todos() {
 
   useEffect(() => {
     console.info('por montar el componente');
-    getRemoteTodos();
+    if (!init) {
+      setInit(true);
+      getRemoteTodos();
+    }
     return () => {
       console.info('desmontando el componente');
     };
-  });
+  }, [init]);
 
   const dispatch = useDispatch();
   // const todos = useSelector((state) => state.Todos);
