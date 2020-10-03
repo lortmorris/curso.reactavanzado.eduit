@@ -10,7 +10,7 @@ import reducers from '../reducers';
 
 const store = createStore(
   combineReducers(reducers),
-  applyMiddleware(logger)
+  applyMiddleware(logger),
 );
 
 export default store;

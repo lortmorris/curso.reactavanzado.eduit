@@ -1,22 +1,25 @@
 import React from 'react';
 
-
 function TodoItem({
   name,
   complete,
   id,
   handleToggle,
-  handleDelete
+  handleDelete,
 }) {
   return (
-    <li style={{
+    <li
+      style={{
       color: complete ? 'blue' : 'red',
       }}
       onClick={() => handleToggle(id)}
     >
-      {name} <button onClick={() => handleDelete(id)}>[X]</button>
+      {name}
+      <button onClick={() => handleDelete(id)}>
+        [X]
+      </button>
     </li>
-  )
+  );
 }
 
 export default TodoItem;

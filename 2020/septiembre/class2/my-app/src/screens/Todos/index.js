@@ -8,7 +8,7 @@ import TodoAddForm from '../../components/TodoAddForm';
 
 function Todos() {
   const dispatch = useDispatch();
-  const todos = useSelector(state => state.Todos);
+  const todos = useSelector((state) => state.Todos);
 
   function handleToggle(id) {
     dispatch(Actions.Todos.toggleTodo(id));
@@ -25,7 +25,7 @@ function Todos() {
         handle={(name) => dispatch(Actions.Todos.addNewTodo(name))}
       />
       <ul>
-        {todos.map(todo => (
+        {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             {...todo}
