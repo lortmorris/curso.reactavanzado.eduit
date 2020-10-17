@@ -17,7 +17,7 @@ import {
   saveTodo,
   toggleTodo,
   removeTodo,
-} from '../../api';
+} from '../../api/todos';
 
 function Todos() {
   const [todos, setTodos] = useState([]);
