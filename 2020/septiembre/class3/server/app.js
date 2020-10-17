@@ -87,6 +87,34 @@ app.post('/remove', (req, res) => {
 });
 
 
+app.post('/users/save', async (req, res) => {
+  db.users.insert({
+    ...req.body,
+    added: new Date(),
+  }, (err, doc) => {
+    if (err) return res.status(500).end(err.toString());
+    res.json(doc);
+  });
+});
+
+
+app.get('/users/all', async (req, res) => {
+  db.users.find({}, (err, docs) => {
+    if (err) return res.status(500).end(err.toString());
+    res.json({ docs });
+  });
+});
+
+app.delete('/users/remove', async (req, res) => {
+  db.users.remove({
+    _id: db.ObjectId(req.body._id),
+  }, (err, docs) => {
+    if (err) return res.status(500).end(err.toString());
+    res.json({ docs });
+  });
+});
+
+
 server.listen(8080, () => {
   console.info('listen on *:8080');
 });
