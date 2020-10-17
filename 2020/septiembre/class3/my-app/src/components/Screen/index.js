@@ -7,12 +7,24 @@ function Screen({
   error = '',
   title,
   modal,
+  loading = false,
 }) {
   return (
     <div className={modal ? 'modal' : 'screen'}>
-      {title && (<h1>{title}</h1>)}
-      {children}
-      {error !== '' && <ErrorMesage error={error} />}
+      <>
+        {!loading && (
+          <>
+            {title && (<h1>{title}</h1>)}
+            {children}
+          </>
+        )}
+
+        {loading && (
+          <span>Cargando...</span>
+        )}
+
+        {error !== '' && <ErrorMesage error={error} />}
+      </>
     </div>
   );
 }

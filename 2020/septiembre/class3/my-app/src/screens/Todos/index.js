@@ -3,13 +3,9 @@ import React, {
   useState,
 } from 'react';
 
-import {
-  // useSelector,
-  useDispatch,
-} from 'react-redux';
-
 import TodoItem from '../../components/TodoItem';
 import TodoAddForm from '../../components/TodoAddForm';
+import Screen from '../../components/Screen';
 
 import Actions from '../../actions';
 import {
@@ -19,10 +15,16 @@ import {
   removeTodo,
 } from '../../api/todos';
 
+import {
+  fetchusers,
+} from '../../api/users';
+
 function Todos() {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState('');
   const [init, setInit] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function getRemoteTodos() {
     console.info('getRemoteTodos');
@@ -41,19 +43,41 @@ function Todos() {
     console.info('inserted: ', inserted);
   }
 
+  async function fetchUsers() {
+    try {
+      setInit(true);
+      const data = await fetchusers();
+      setUsers(data.docs);
+    } catch (err) {
+      setError('Error cargando datos');
+      console.info('error fetchUsers: ', err);
+    }
+  }
+
+  function timeout() {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(), 2000);
+    });
+  }
+  async function initScreen() {
+    setLoading(true);
+    await Promise.all([
+      fetchUsers(),
+      getRemoteTodos(),
+      timeout(),
+    ]);
+    setLoading(false);
+  }
   useEffect(() => {
     console.info('por montar el componente');
     if (!init) {
       setInit(true);
-      getRemoteTodos();
+      initScreen();
     }
     return () => {
       console.info('desmontando el componente');
     };
   }, [init]);
-
-  const dispatch = useDispatch();
-  // const todos = useSelector((state) => state.Todos);
 
   async function handleToggle(id, completed) {
     try {
@@ -62,7 +86,6 @@ function Todos() {
     } catch (err) {
       setError('Error cambiando toggle');
     }
-    // dispatch(Actions.Todos.toggleTodo(id, completed));
   }
 
   async function handleDelete(_id) {
@@ -72,15 +95,17 @@ function Todos() {
     } catch (err) {
       setError('Error eliminando el TODO');
     }
-
-    // dispatch(Actions.Todos.deleteTodo(id));
   }
 
   return (
-    <div>
-      <h2>TODOS</h2>
+    <Screen
+      title="Todos"
+      error={error}
+      loading={loading}
+    >
       <TodoAddForm
         handle={(name) => addNewTodoHandle(Actions.Todos.addNewTodo(name).payload)}
+        users={users}
       />
       <ul>
         {todos.map((todo) => (
@@ -92,10 +117,7 @@ function Todos() {
           />
         ))}
       </ul>
-      {error !== '' && (
-        <h1>{error}</h1>
-      )}
-    </div>
+    </Screen>
   );
 }
 
