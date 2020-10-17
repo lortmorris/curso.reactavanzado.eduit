@@ -12,7 +12,7 @@ export async function fetchusers() {
 
 export async function saveuser(todo) {
   try {
-    const data = await postData('http://localhost:8080/save', { ...todo });
+    const data = await postData('http://localhost:8080/users/save', { ...todo });
     return data;
   } catch (err) {
     throw new Error(err);
@@ -21,7 +21,7 @@ export async function saveuser(todo) {
 
 export async function removeuser(_id) {
   try {
-    const data = await postData('http://localhost:8080/remove', { _id });
+    const data = await postData('http://localhost:8080/users/remove', { _id }, 'DELETE');
     return data;
   } catch (err) {
     throw new Error(err);
