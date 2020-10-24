@@ -86,6 +86,20 @@ app.post('/remove', (req, res) => {
   });
 });
 
+app.post('/login', (req, res) => {
+  db.user.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  }, (err, doc) => {
+    if (err) {
+      return res.status(500).end(err.toString())
+    }
+    if (!doc) {
+      return res.status(500).end('invalid username or password');
+    }
+    res.json(doc);
+  });
+});
 
 app.post('/users/save', async (req, res) => {
   db.users.insert({
