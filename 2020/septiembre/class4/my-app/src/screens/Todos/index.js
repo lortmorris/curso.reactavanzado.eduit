@@ -3,6 +3,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useSelector } from 'react-redux';
 import TodoItem from '../../components/TodoItem';
 import TodoAddForm from '../../components/TodoAddForm';
 import Screen from '../../components/Screen';
@@ -20,6 +21,7 @@ import {
 } from '../../api/users';
 
 function Todos() {
+  const userData = useSelector((state) => state.Users.userData);
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState('');
   const [init, setInit] = useState(false);
@@ -30,7 +32,7 @@ function Todos() {
     console.info('getRemoteTodos');
     try {
       const remoteTodos = await getTodos();
-      setTodos(remoteTodos);
+      setTodos(remoteTodos.filter((todo) => todo?.user?._id === userData?._id));
     } catch (err) {
       setError('No se ha podido conectar al servidor');
       console.info('explotod todo: ', err);

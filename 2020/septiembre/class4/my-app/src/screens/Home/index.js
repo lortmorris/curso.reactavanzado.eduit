@@ -1,10 +1,11 @@
 import React, {
   useState,
+  useContext,
 } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { AppConsumer } from '../../AppContext';
+import Context, { AppConsumer } from '../../AppContext';
 import Screen from '../../components/Screen';
 
 import LoginForm from '../../components/LoginForm';
@@ -13,7 +14,10 @@ import { Login } from '../../api/users';
 
 function Home() {
   const dispatch = useDispatch();
+  const context = useContext(Context);
   const [error, setError] = useState('');
+
+  console.info('Context Home: ', context);
   async function LoginHandle(username, password) {
     try {
       const logged = await Login(username, password);
@@ -40,11 +44,6 @@ function Home() {
             title={context.logged ? `Welcome ${context.user.firstName}` : 'Login'}
             error={error}
           >
-            {context.logged && (
-              <h1>
-                {}
-              </h1>
-            )}
             {!context.logged && (
               <LoginForm submitHandle={LoginHandle} />
             )}

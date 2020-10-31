@@ -1,31 +1,39 @@
-import React, {
-  useContext,
-} from 'react';
+import React from 'react';
 
 import {
   Link,
 } from 'react-router-dom';
 
+import { AppConsumer } from '../../AppContext';
+
 function NavBar() {
-  const theme = useContext('ThemeContext');
-  console.info('Context: ', theme);
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-        <li>
-          <Link to="/todos">Todos</Link>
-        </li>
-      </ul>
-    </nav>
+    <AppConsumer>
+      {
+        (context) => (
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              {context.logged && (
+                <li>
+                  <Link to="/users">Users</Link>
+                </li>
+              )}
+              {context.logged && (
+                <li>
+                  <Link to="/todos">Todos</Link>
+                </li>
+              )}
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+            </ul>
+          </nav>
+        )
+      }
+    </AppConsumer>
   );
 }
 
