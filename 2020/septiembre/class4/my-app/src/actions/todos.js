@@ -1,7 +1,8 @@
-export const addNewTodo = (name) => ({
+export const addNewTodo = (name, user) => ({
   type: 'TODOS_ADD',
   payload: {
     name,
+    user,
     completed: false,
   },
 });

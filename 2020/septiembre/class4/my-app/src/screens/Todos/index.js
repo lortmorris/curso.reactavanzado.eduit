@@ -74,9 +74,6 @@ function Todos() {
       setInit(true);
       initScreen();
     }
-    return () => {
-      console.info('desmontando el componente');
-    };
   }, [init]);
 
   async function handleToggle(id, completed) {
@@ -104,7 +101,7 @@ function Todos() {
       loading={loading}
     >
       <TodoAddForm
-        handle={(name) => addNewTodoHandle(Actions.Todos.addNewTodo(name).payload)}
+        handle={(name, user) => addNewTodoHandle(Actions.Todos.addNewTodo(name, user).payload)}
         users={users}
       />
       <ul>
