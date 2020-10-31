@@ -1,8 +1,19 @@
 import React from 'react';
 
+import { AppConsumer } from '../../AppContext';
+
 function Home() {
   return (
-    <h2>Home</h2>
+    <AppConsumer>
+      {
+        (context) => (
+          <h2>
+            {console.info('context: ', context)}
+            {`${context.theme}`}
+          </h2>
+        )
+      }
+    </AppConsumer>
   );
 }
 

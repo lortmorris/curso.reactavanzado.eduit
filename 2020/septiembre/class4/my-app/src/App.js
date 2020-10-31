@@ -16,12 +16,12 @@ import Home from './screens/Home';
 import NavBar from './components/NavBar';
 import store from './store';
 
-const ThemeContext = React.createContext('light');
+import AppProvider from './AppProvider';
 
 function App() {
   return (
     <Provider store={store}>
-      <ThemeContext.Provider value="dark">
+      <AppProvider>
         <Router>
           <div>
             <NavBar />
@@ -41,7 +41,7 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </ThemeContext.Provider>
+      </AppProvider>
     </Provider>
   );
 }
