@@ -27,3 +27,12 @@ export async function removeuser(_id) {
     throw new Error(err);
   }
 }
+
+export async function Login(email, password) {
+  try {
+    const logged = await postData('http://localhost:8080/users/login', { email, password });
+    return logged;
+  } catch (err) {
+    throw new Error(err);
+  }
+}

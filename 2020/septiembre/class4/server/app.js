@@ -86,8 +86,8 @@ app.post('/remove', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
-  db.user.findOne({
+app.post('/users/login', (req, res) => {
+  db.users.findOne({
     email: req.body.email,
     password: req.body.password,
   }, (err, doc) => {
