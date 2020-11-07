@@ -24,7 +24,6 @@ function Home() {
     logged,
   } = context;
 
-  console.info('Context Home: ', context);
   async function LoginHandle(username, password) {
     try {
       const loggedData = await Login(username, password);
