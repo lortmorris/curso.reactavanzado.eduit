@@ -3,9 +3,11 @@ import React, {
   useContext,
 } from 'react';
 
-import { useDispatch } from 'react-redux';
+import {
+  useDispatch,
+} from 'react-redux';
 
-import Context, { AppConsumer } from '../../AppContext';
+import AppContext from '../../AppContext';
 import Screen from '../../components/Screen';
 
 import LoginForm from '../../components/LoginForm';
@@ -13,17 +15,24 @@ import LoginForm from '../../components/LoginForm';
 import { Login } from '../../api/users';
 
 function Home() {
+  const context = useContext(AppContext);
   const dispatch = useDispatch();
-  const context = useContext(Context);
   const [error, setError] = useState('');
+
+  const {
+    user,
+    logged,
+  } = context;
 
   console.info('Context Home: ', context);
   async function LoginHandle(username, password) {
     try {
-      const logged = await Login(username, password);
+      const loggedData = await Login(username, password);
+      sessionStorage.setItem('userData', JSON.stringify(loggedData));
+
       dispatch({
         type: 'USERS_SET_USERDATA',
-        payload: logged,
+        payload: loggedData,
       });
 
       dispatch({
@@ -37,20 +46,14 @@ function Home() {
   }
 
   return (
-    <AppConsumer>
-      {
-        (context) => (
-          <Screen
-            title={context.logged ? `Welcome ${context.user.firstName}` : 'Login'}
-            error={error}
-          >
-            {!context.logged && (
-              <LoginForm submitHandle={LoginHandle} />
-            )}
-          </Screen>
-        )
-      }
-    </AppConsumer>
+    <Screen
+      title={logged ? `Welcome ${user.firstName}` : 'Login'}
+      error={error}
+    >
+      {!logged && (
+        <LoginForm submitHandle={LoginHandle} />
+      )}
+    </Screen>
   );
 }
 
